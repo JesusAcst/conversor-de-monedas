@@ -1,33 +1,53 @@
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Principal {
     public static void main(String[] args)  {
-
+        Scanner scanner = new Scanner(System.in);
         ConsultaDeMoneda consulta = new ConsultaDeMoneda();
-        Monedas moneda = consulta.buscaMoneda("123");
+        int opcion = 0;
+        while (opcion != 7){
+            System.out.println("""
+                    ////////////////   MENU PRINCIPAL   /////////////////
+                    Bienvenido/a al conversor de Moneda. 
+                    1. Dólar a Peso Colombiano
+                    2. Peso Colombiano a Dolar
+                    3. Dólar a Peso Argentino
+                    4. Peso Argentino a Dolar
+                    5. Dólar a Peso Brasileño
+                    6. Peso Brasileño a Dolar
+                    7. salir
+                    """);
+            System.out.print("Elija una opcion: ");
+            opcion = scanner.nextInt();
+            scanner.nextLine();
 
-        try {
-            System.out.println(moneda);
-        }catch (IllegalStateException e){
-            System.out.println("No escribir numeros, solo Currency Code  en letras");
-        }catch (NullPointerException e){
-            System.out.println("Currency Code equivocado, escribir nuevamente de forma correctamente");
-        }catch (RuntimeException e){
-            System.out.println(e.getMessage());
-            System.out.println("Fnializando la aplicacion");
+            switch (opcion){
+                case 1:
+                    ConversorDeMoneda.convertir("USD","COP",consulta,scanner);
+                    break;
+                case 2:
+                    ConversorDeMoneda.convertir("COP","USD",consulta,scanner);
+                    break;
+                case 3:
+                    ConversorDeMoneda.convertir("USD","ARS",consulta,scanner);
+                    break;
+                case 4:
+                    ConversorDeMoneda.convertir("ARS","USD",consulta,scanner);
+                    break;
+                case 5:
+                    ConversorDeMoneda.convertir("USD","BRL",consulta,scanner);
+                    break;
+                case 6:
+                    ConversorDeMoneda.convertir("BRL","USD",consulta,scanner);
+                    break;
+                case 7:
+                    System.out.println("saliendo del programa");
+                    break;
+                default:
+                    System.out.println("Opción no válida. Por favor, intentar nuevamente.");
+                    break;
+            }
+            System.out.println();
         }
-
-        /*
-         Acceso a las propiedades del objeto
-        System.out.println("Base Code: " + moneda.base_code());
-        System.out.println("Tasa de COP: " + moneda.conversion_rates().get("COP"));
-        System.out.println("Tasa de EUR: " + moneda.conversion_rates().get("EUR"));
-        System.out.println("Tasa de BRL: " + moneda.conversion_rates().get("BRL"));
-        System.out.println("Tasa de ARS: " + moneda.conversion_rates().get("ARS"));
-        */
-
-
-
     }
 }
